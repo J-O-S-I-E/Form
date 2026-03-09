@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Form</title>
 </head>
 <body>
     <form action="http://www.google.com/search">
@@ -13,6 +13,42 @@
             <input type="submit" />
         </div>
     </form>
+    <br><hr>
+    <form action="submit">
+        UserName<input type="text" size="10" maxlength="8" name="user"><br>
+        <div>
+            <p>What toppings do you want on your pizza?</p>
+            <input type="checkbox" name="Pepperroni">Pepperoni <br>
+            <input type="checkbox" name="Sausage">Sausage <br>
+            <input type="checkbox" name="Chicken">Chicken <br>
+        </div>
+    <input type="submit" value="Log In" >
+    <br><hr>
+    <form action="submit"> 
+        <select name="favoritecharacter[]" multiple>
+            <option>Jerry</option>
+            <option>George</option>
+            <option>Elaine</option>
+            <option selected>Mark</option>
+        </select>
+        <optgroup label="Major Char">
+            <option>Lucy</option>
+            <option>John</option>
+            <option selected>Wendy</option>
+        </optgroup>
+    </form>
 
+
+    <form action="sumbit">
+        <label for="visa" type="radio" name="cc" value="visa" checked> Visa </label><br>
+        <label for="ms" type="radio" name="cc" value="ms"> Mastercard </label><br>
+        <label for="amex" type="radio" name="cc" value="amex" American Express></label> <br>
+        <label for="discover" type="radio" name="cc" value="dicover"> Discover </label>
+
+        <input type="hidden" name="school" value="NYIT">
+        <input type="reset">
+        <input type="submit">
+    </form>
+    </form>
 </body>
 </html>
