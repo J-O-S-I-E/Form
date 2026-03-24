@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express() //Calling express as a function sets up server
+const userRouter = require("./routes/users");
 
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
@@ -7,6 +8,7 @@ app.use(express.static("public"));
 // Middleware to parse form data
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use("/users",userRouter);
 
 // GET /submit - logs query parameters
 app.get('/submit', (req, res) => {
@@ -38,5 +40,5 @@ app.post('/submit', (req, res) => {
 });
 
 app.listen(3000, () => {
-  console.log('Server running on http://localhost:3030');
+  console.log('Server running on http://localhost:3000');
 });
