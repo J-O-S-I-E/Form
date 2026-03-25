@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <% 
+        let randomIndex = parseInt(Math.random()*chosenWords.length); //generate a random index
+        let chosenWord = chosenWords[randomIndex]; // pick that as our correct word
+        let [correctWord, correctPart, correctDef] = choseword.split('\t'); //break it up into 3 parts
+    %>
+    <h1>
+        Word Quiz
+    </h1>
+    <h2>
+        <%=corredWord%> -  <%=correctPart%>
+    </h2>
+    <!--Show the word and part of speech-->
+    <form action ="quiz" method="post">
+    <ol>
+        <% for ( currentWord of choseWords){ 
+            let [word,part,def] = currentWord.spilt('\t')%>
+            <li> <label> 
+                <input type="radio" name="userChoice" value="">
+                    <%= def %>
+                </label>
+            </li>
+
+        <% } %>
+    </ol>
+    <input type="submit" value="Submit Answer!">
+    <input type="hidden" name="correctDef" value="<%=correctDef %>">
+    </form>
+</body>
+</html>
