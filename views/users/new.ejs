@@ -6,10 +6,28 @@
     <title>Document</title>
 </head>
 <body>
+    <h1>
+        Please enter your Personal Information
+    </h1>
     <form action="/users" method="post">
         <label for="firstName">
-        Name: <input type="text" name="firstName" value ="<%= locals.firstName %>">
+        First Name: <input type="text" name="firstName" value ="<%= locals.firstName %>">
         </label>
+        <label for="lastName">
+        Last Name: <input type="text" name="lastName" value ="<%= locals.lastName %>">
+        </label>
+        <p>Gender:</p>
+        <label for="gender">
+            <input type="radio" id="female" name="gender" value="<%= locals.gender %>">
+            Female
+        </label>
+        <label for="gender">
+            <input type="radio" id="male" name="gender" value="<%= locals.gender %>">
+            Male
+        </label><br><br>
+        <label for="age">
+        Age: <input type="number" name="age" value ="<%= locals.age %>">
+        </label><br><br>
         <button type="submit">Submit</button>
     </form>
 </body>

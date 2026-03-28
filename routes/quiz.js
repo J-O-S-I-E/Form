@@ -8,7 +8,7 @@ router.get("/", async (req, res) =>{
     let chosenWords = await getWords();
     //send those back and render quiz.ejs
     console.log("Chosen Words: ", chosenWords);
-    res.render('quiz', {chosenWords});
+    res.render('quiz', {chosenWords}); // chosenWords:chosenWords
 });
 
 router.post("/", (req,res)=>{
@@ -20,7 +20,7 @@ router.post("/", (req,res)=>{
     }
     let total = totalQuestions+1;
     //get another new set of words...how
-    //send that set of words with the user
+    //send that set of words with the user score and their 
     //Send some other data back:
 });
 
