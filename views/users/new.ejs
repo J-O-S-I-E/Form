@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Add New User</title>
 </head>
 <body>
     <h1>
@@ -18,15 +18,20 @@
         </label>
         <p>Gender:</p>
         <label for="gender">
-            <input type="radio" id="female" name="gender" value="<%= locals.gender %>">
+            <input type="radio" name="gender" value="female" <%= locals.gender ==='female' ? 'checked' : '' %>>
             Female
         </label>
         <label for="gender">
-            <input type="radio" id="male" name="gender" value="<%= locals.gender %>">
+            <input type="radio" name="gender" value="male" <%= locals.gender ==='male' ? 'checked' : '' %>>
             Male
-        </label><br><br>
+        </label>
+        <label for="gender">
+            <input type="radio" name="gender" value="other" <%= locals.gender ==='other' ? 'checked' : '' %>>
+            Other
+        </label>
+        <br><br>
         <label for="age">
-        Age: <input type="number" name="age" value ="<%= locals.age %>">
+        Age: <input type="number" name="age" min="1" max="120" value ="<%= locals.age %>">
         </label><br><br>
         <button type="submit">Submit</button>
     </form>

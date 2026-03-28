@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>List of User</title>
 </head>
 <body>
     <h1>Our Current Users</h1>
@@ -11,7 +11,7 @@
     <% 
         let users = locals.users;
         for (user of users){ %>
-            <li><%= user.firstName %></li>
+            <li><%= user.firstName %> <%= user.lastName %></li>
         <%}%>
     %>
     </ul>

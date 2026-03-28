@@ -5,15 +5,32 @@ router.route('/').get((req, res)=>{
     res.send('User List');
 }).post((req,res) =>{
     const firstName = req.body.firstName;
-    const isValid = firstName !=="";
+    const lastName =req.body.lastName;
+    const age= req.body.firstName;
+    const gender = req.body.age;
+    
+    const isValid = firstName !=="" 
+                    && lastName !==""
+                    && gender
+                    && age;
+
     if(isValid){
-        console.log(`Adding user: ${firstName}`);
-        users.push({firstName});
+        console.log(`Adding user: ${firstName} ${lastName}`);
+        users.push({
+            firstName,
+            lastName,
+            age
+        });
         res.render('users/list',{users});
     }
     else{
         console.log("Error adding a user!");
-        res.render("users/new",{firstName:firstName})
+        res.render("users/new",{
+            firstName:firstName,
+            lastName:lastName,
+            gender,
+            age:Number(age)
+        })
     }
 });
 router.get('/list',(req,res) =>{
@@ -30,7 +47,7 @@ router.get('/new', (req, res)=>{
 router.route('/:id').get((req, res)=>{
     console.log(req.user);
     console.log("Getting user!");
-    res.send(`Getting User data for id: ${req.user['name']}`);
+    res.render('users/show', {user:req.user, id:req.params.id});
 
 }).delete((req, res)=>{
     res.send(`Deleting User data for id: ${req.params.id}`);
@@ -39,7 +56,11 @@ router.route('/:id').get((req, res)=>{
     res.send(`Updating User data for id: ${req.params.id}`);
 });
 
-const users =[{firstName:"George"}, {firstName:"Justyna"}];
+const users =[
+    { firstName: "Wendy", lastName: "Washington", gender: "male", age: 67 },
+    { firstName: "John", lastName: "Kowalski", gender: "female", age: 30 }
+];
+
 router.param("id", (req, res, next, id)=>{
     req.user = users[id];
     console.log("Access attempted by User:",id);
