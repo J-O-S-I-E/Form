@@ -7,13 +7,19 @@
 </head>
 <body>
     <h1>Our Current Users</h1>
-    <ul>
-    <% 
-        let users = locals.users;
-        for (user of users){ %>
-            <li><%= user.firstName %> <%= user.lastName %></li>
+    <table border="1" cellpadding="8" cellspacing="0">
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+        </tr>
+    <%  for(let i =0; i<users.length; i++){%>
+        <tr>
+            <td><a href="/users/<%=i%>"><%=i%></a></td>
+            <td><%= users[i].firstName %> </td>
+            <td><%= users[i].lastName %> </td>
+        </tr>
         <%}%>
-    %>
-    </ul>
+    </table>
 </body>
 </html>
