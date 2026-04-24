@@ -6,22 +6,44 @@ const {readFile} = require('fs').promises;
 router.get("/", async (req, res) =>{
     //Get 5 words, with their pos and def and send back to the other page
     let chosenWords = await getWords();
-    //send those back and render quiz.ejs
-    console.log("Chosen Words: ", chosenWords);
-    res.render('quiz', {chosenWords}); // chosenWords:chosenWords
+    res.render('quiz',{
+        chosenWords,
+        totalQuestions:0,
+        totalCorrect:0,
+        results:null,
+        isCorrect:null,
+        previousWord:null,
+        previousPart:null,
+        previousCorrectDef:null
+    });
+    //console.log("Chosen Words: ", chosenWords);
+    //res.render('quiz', {chosenWords}); // chosenWords:chosenWords
 });
 
-router.post("/", (req,res)=>{
-    console.log(req.body);
-    let {userChoice,correctDef, totalQuestions, totalCorrect} = req.body
-    if (userChoice === correctDef){
-        console.log("User guessed Correctly");
-        let score = totalCorrect+1;
-    }
-    let total = totalQuestions+1;
-    //get another new set of words...how
-    //send that set of words with the user score and their 
-    //Send some other data back:
+router.post("/", async(req,res)=>{
+    //console.log(req.body);
+    let {userChoice,correctDef, totalQuestions, totalCorrect, correctWord,correctPart} = req.body;
+    
+    totalQuestions =parseInt(totalQuestions || '0', 10);
+    totalCorrect = parseInt(totalCorrect || '0',10);
+    
+    const isCorrect = userChoice === correctDef;
+    const newTotalQuestions = totalQuestions + 1;
+    const newTotalCorrect = totalCorrect + (isCorrect ? 1 : 0);
+    const result = isCorrect ? 'Correct!' : 'Incorrect.';
+
+    let chosenWords = await getWords();
+
+    res.render('quiz', {
+        chosenWords,
+        totalQuestions: newTotalQuestions,
+        totalCorrect: newTotalCorrect,
+        result,
+        isCorrect,
+        previousWord: correctWord,
+        previousPart: correctPart,
+        previousCorrectDef: correctDef
+    });
 });
 
 let getWords = async ()=>{

@@ -4,40 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .correct { color: green; }
+        .incorrect { color: red; }
+        .feedback { margin-bottom: 1rem; font-weight: bold; }
+    </style>
 </head>
 <body>
     <% 
         let questionCount = locals.totalQuestions ?? 0;
         let score = locals.totalCorrect ?? 0;
-        let randomIndex = parseInt(Math.random()*chosenWords.length); //generate a random index
-        let chosenWord = chosenWords[randomIndex]; // pick that as our correct word
-        let [correctWord, correctPart, correctDef] = chosenWord.split('\t'); //break it up into 3 parts
+        let result = locals.result;
+        let isCorrect = locals.isCorrect;
+        let previousWord = locals.previousWord;
+        let previousPart = locals.previousPart;
+        let previousCorrectDef = locals.previousCorrectDef;
+
+        let randomIndex = parseInt(Math.random() * chosenWords.length);
+        let chosenWord = chosenWords[randomIndex];
+        let [correctWord, correctPart, correctDef] = chosenWord.split('\t');
     %>
 
-    <% if (questionCount ===0) {%>
-        <h1> Welcome to the word quiz
-        <h2><%= correctWord%> -  <%= correctPart%> </h2>
-    <% } else { %>
-        <h1>Score: <%= score%> / <%= questionCount%></h1>
+    <% if (result) { %>
+        <div class="feedback <%= isCorrect ? 'correct' : 'incorrect' %>">
+            <span class="<%= isCorrect ? 'correct' : 'incorrect' %>"><%= result %></span>
+            <% if (!isCorrect) { %>
+                The correct definition of "<%= previousWord %>" was: <%= previousCorrectDef %>.
+            <% } else { %>
+                Great job on "<%= previousWord %>"!
+            <% } %>
+        </div>
     <% } %>
-    <!--Show the word and part of speech-->
-    <form action ="quiz" method="post">
-    <ol>
-        <% for (let currentWord of chosenWords){ 
-            let [word,part,def] = currentWord.split('\t')
-        %>
-            <li> <label> 
-                <input type="radio" name="userChoice" value="<%=def%>">
-                    <%= def %>
-                </label>
-            </li>
 
-        <% } %>
-    </ol>
-    <input type="submit" value="Submit Answer!">
-    <input type="hidden" name="correctDef" value="<%=correctDef%>">
-    <input type="hidden" name="totalQuestions" value="<%=questionCount%>">
-    <input type="hidden" name="totalCorrect" value="<%=score%>">
+    <% if (questionCount >= 10) { //I only want 10 rounds of guessing changed from ===0 %>
+        <h2>Quiz Complete! Final Score: <%= score %> / <%= questionCount %></h2>
+        <p><a href="/quiz">Take the quiz again</a></p>
+    <% } else { %>
+        <h1>Welcome to the word quiz</h1>
+        <h2>Score: <%= score %> / <%= questionCount %></h2>
+
+        <h2>What is the definition of "<%= correctWord %>"?</h2>
+        <p>Part of speech: <%= correctPart %></p>
+        <form action="quiz" method="post">
+            <ol>
+                <% for (let currentWord of chosenWords) { 
+                    let [word, part, def] = currentWord.split('\t');
+                %>
+                    <li>
+                        <label>
+                            <input type="radio" name="userChoice" value="<%= def %>" required>
+                            <%= def %>
+                        </label>
+                    </li>
+                <% }} %>
+        </ol>
+        <input type="hidden" name="correctDef" value="<%= correctDef %>">
+        <input type="hidden" name="correctWord" value="<%= correctWord %>">
+        <input type="hidden" name="correctPart" value="<%= correctPart %>">
+        <input type="hidden" name="totalQuestions" value="<%= questionCount %>">
+        <input type="hidden" name="totalCorrect" value="<%= score %>">
+        <input type="submit" value="Submit Answer!">
     </form>
 </body>
 </html>
