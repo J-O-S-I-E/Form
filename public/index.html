@@ -23,6 +23,8 @@
             <input type="checkbox" name="Chicken">Chicken <br>
         </div>
     <input type="submit" value="Log In" >
+    </form>
+
     <br><hr>
     <form action="submit"> 
         <select name="favoritecharacter[]" multiple>
@@ -31,24 +33,28 @@
             <option>Elaine</option>
             <option selected>Mark</option>
         </select>
+        <select>
         <optgroup label="Major Char">
             <option>Lucy</option>
             <option>John</option>
             <option selected>Wendy</option>
         </optgroup>
-    </form>
-
-
-    <form action="sumbit">
-        <label for="visa" type="radio" name="cc" value="visa" checked> Visa </label><br>
-        <label for="ms" type="radio" name="cc" value="ms"> Mastercard </label><br>
-        <label for="amex" type="radio" name="cc" value="amex" American Express></label> <br>
-        <label for="discover" type="radio" name="cc" value="dicover"> Discover </label>
-
-        <input type="hidden" name="school" value="NYIT">
+        </select>
+        <br>
         <input type="reset">
         <input type="submit">
     </form>
+    <br>
+
+    <form action="submit">
+        <label for="visa"><input type="radio" name="cc" value="visa" checked> Visa </label><br>
+        <label for="ms"> <input type="radio" name="cc" value="ms"> Mastercard </label><br>
+        <label for="amex"><input type="radio" name="cc" value="amex"> American Express </label> <br>
+        <label for="discover"><input type="radio" name="cc" value="discover"> Discover </label>
+        <br>
+        <input type="hidden" name="school" value="NYIT">
+        <input type="reset">
+        <input type="submit">
     </form>
 </body>
 </html>
